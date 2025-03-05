@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Step 4 - Review{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Step 4: Review & Submit</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Judul: {{ request.session.title }}</h5>
+            <p><strong>Jenis Dokumen:</strong> {{ request.session.document_type }}</p>
+            <p><strong>Deskripsi:</strong> {{ request.session.description }}</p>
+            <p><strong>Prioritas:</strong> {{ request.session.priority }}</p>
+            <p><strong>Deadline:</strong> {{ request.session.deadline|default:"-" }}</p>
+            <p><strong>Catatan Tambahan:</strong> {{ request.session.additional_notes|default:"-" }}</p>
+            <p><strong>File:</strong> {% if request.session.file %} {{ request.session.file }} {% else %} Tidak ada {% endif %}</p>
+        </div>
+    </div>
+    <form method="POST" action="{% url 'request_review' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success mt-3">Submit</button>
+    </form>
+</div>
+{% endblock %}

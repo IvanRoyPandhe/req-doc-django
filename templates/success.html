@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Success{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Request Submitted Successfully!</h4>
+        <p>Your document request has been submitted. You can view its status on the dashboard.</p>
+        <hr>
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

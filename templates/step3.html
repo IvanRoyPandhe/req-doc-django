@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Step 3 - Upload File{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Step 3: Informasi Tambahan & Upload File (Opsional)</h2>
+    <form method="POST" action="{% url 'request_step3' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="deadline">Deadline (Opsional)</label>
+            <input type="date" class="form-control" id="deadline" name="deadline">
+        </div>
+        <div class="form-group">
+            <label for="notes">Catatan Tambahan</label>
+            <textarea class="form-control" id="notes" name="additional_notes" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="file">Upload File</label>
+            <input type="file" class="form-control-file" id="file" name="file">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Next</button>
+    </form>
+</div>
+{% endblock %}

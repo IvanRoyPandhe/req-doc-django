@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Step 1 - Pilih Dokumen{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Step 1: Pilih Jenis Dokumen</h2>
+    <form method="POST" action="{% url 'request_step1' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="documentType">Jenis Dokumen</label>
+            <select class="form-control" id="documentType" name="document_type" required>
+                <option value="FP">Funding Proposal</option>
+                <option value="IL">Introduction Letter</option>
+                <option value="AL">Assignment Letter</option>
+                <option value="RL">Recommendation Letter</option>
+                <option value="AR">Access Request</option>
+                <option value="OT">Other Document</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Next</button>
+    </form>
+</div>
+{% endblock %}
