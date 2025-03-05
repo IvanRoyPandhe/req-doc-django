@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Request, Attachment
 from django.db.models import Q
+from django.core.exceptions import ValidationError
 from django.core.files.storage import default_storage
 
 @login_required
@@ -77,34 +78,59 @@ def request_step3(request):
 @login_required
 def request_review(request):
     if request.method == 'POST':
-        # Create the Request object
-        new_request = Request(
-            user=request.user,
-            title=request.session.get('title'),
-            type=request.session.get('document_type'),
-            description=request.session.get('description'),
-            priority=request.session.get('priority'),
-            deadline=request.session.get('deadline'),
-            additional_notes=request.session.get('additional_notes'),
-        )
-        new_request.save()
+        try:
+            # Ambil data dari session
+            title = request.session.get('title')
+            document_type = request.session.get('document_type')
+            description = request.session.get('description')
+            priority = request.session.get('priority')
+            deadline = request.session.get('deadline')
+            additional_notes = request.session.get('additional_notes')
+            file = request.session.get('file')
 
-        # Save the attachment if a file was uploaded
-        if 'file' in request.session:
-            attachment = Attachment(
-                request=new_request,
-                file=request.session['file'],
+            # Validasi deadline
+            if deadline == '':
+                deadline = None  # Set ke None jika kosong
+
+            # Buat objek Request
+            new_request = Request(
+                user=request.user,
+                title=title,
+                type=document_type,
+                description=description,
+                priority=priority,
+                deadline=deadline,
+                additional_notes=additional_notes,
             )
-            attachment.save()
+            new_request.full_clean()  # Validasi model
+            new_request.save()
 
-        # Clear session data
-        for key in ['document_type', 'title', 'description', 'priority', 'deadline', 'additional_notes', 'file']:
-            if key in request.session:
-                del request.session[key]
+            # Simpan file jika ada
+            if file:
+                attachment = Attachment(
+                    request=new_request,
+                    file=file,
+                )
+                attachment.save()
 
-        return redirect('request_success')
+            # Hapus data session
+            for key in ['title', 'document_type', 'description', 'priority', 'deadline', 'additional_notes', 'file']:
+                if key in request.session:
+                    del request.session[key]
+
+            return redirect('request_success')
+
+        except ValidationError as e:
+            # Tangani error validasi
+            return render(request, 'step4.html', {'error': e.messages})
+
     return render(request, 'step4.html')
 
 @login_required
 def request_success(request):
     return render(request, 'success.html')
+
+@login_required
+def request_detail(request, request_id):
+    request_detail = get_object_or_404(Request, id=request_id, user=request.user)
+    return render(request, 'request_detail.html', {'request': request_detail})

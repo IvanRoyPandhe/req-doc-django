@@ -8,4 +8,5 @@ urlpatterns = [
     path('step3/', views.request_step3, name='request_step3'),
     path('review/', views.request_review, name='request_review'),
     path('success/', views.request_success, name='request_success'),
+    path('request/<int:request_id>/', views.request_detail, name='request_detail'),
 ]

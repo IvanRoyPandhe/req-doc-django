@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Request Detail - {{ request.title }}{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">{{ request.title }}</h2>
+            <p class="card-text text-muted">{{ request.type }}</p>
+            <p class="card-text">{{ request.description }}</p>
+            <span class="badge bg-info">{{ request.status }}</span>
+            <small class="text-muted d-block">Submitted on: {{ request.date_submitted }}</small>
+            {% if request.deadline %}
+                <small class="text-muted d-block">Deadline: {{ request.deadline }}</small>
+            {% endif %}
+            {% if request.additional_notes %}
+                <div class="mt-3">
+                    <h5>Additional Notes:</h5>
+                    <p>{{ request.additional_notes }}</p>
+                </div>
+            {% endif %}
+
+            <!-- Tampilkan fileadmin dan deskripsiadmin jika ada -->
+            {% if request.fileadmin %}
+                <div class="mt-3">
+                    <h5>Admin File:</h5>
+                    <a href="{{ request.fileadmin.url }}" class="btn btn-primary" download>
+                        <i class="bi bi-download"></i> Download File
+                    </a>
+                    <p>{{ request.fileadmin }}</p>
+                </div>
+            {% endif %}
+            {% if request.deskripsiadmin %}
+                <div class="mt-3">
+                    <h5>Admin Notes:</h5>
+                    <p>{{ request.deskripsiadmin}}</p>
+                </div>
+            {% endif %}
+
+            <a href="{% url 'dashboard' %}" class="btn btn-primary mt-3">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

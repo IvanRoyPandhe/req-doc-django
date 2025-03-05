@@ -27,7 +27,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                     <li><a class="dropdown-item" href="{%url 'profile'%}">My Profile</a></li>
-                    <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                    <!-- <li><a class="dropdown-item" href="settings.html">Settings</a></li> -->
                     <form action="{% url 'logout' %}" method="POST" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="dropdown-item text-danger">Logout</button>

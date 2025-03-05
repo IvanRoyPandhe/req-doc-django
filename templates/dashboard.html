@@ -78,15 +78,17 @@
         {% if requests %}
             {% for request in requests %}
                 <div class="col-md-4 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ request.title }}</h5>
-                            <p class="card-text text-muted">{{ request.type }}</p>
-                            <p class="card-text">{{ request.description }}</p>
-                            <span class="badge bg-info">{{ request.status }}</span>
-                            <small class="text-muted d-block">{{ request.date_submitted }}</small>
+                    <a href="{% url 'request_detail' request.id %}" class="text-decoration-none">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ request.title }}</h5>
+                                <p class="card-text text-muted">{{ request.type }}</p>
+                                <p class="card-text">{{ request.description }}</p>
+                                <span class="badge bg-info">{{ request.status }}</span>
+                                <small class="text-muted d-block">{{ request.date_submitted }}</small>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         {% else %}
