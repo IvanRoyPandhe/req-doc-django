@@ -1,30 +1,55 @@
-    {% extends 'base.html' %}
-    {% load static %}
+{% extends 'base.html' %}
+{% load static %}
 
-    {% block title %}Step 2 - Isi Informasi{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'styles/step2.css' %}">
+{% endblock head %}
 
-    {% block content %}
-    <div class="container mt-5">
-        <h2 class="mb-4">Step 2: Isi Informasi Dokumen</h2>
-        <form method="POST" action="{% url 'request_step2' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="title">Judul Dokumen</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+{% block title %}Step 2 - Isi Informasi{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Step 2: Isi Informasi Dokumen</h2>
+    <form method="POST" action="{% url 'request_step2' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Judul Dokumen</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Deskripsi</label>
+            <textarea id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label>Prioritas</label>
+            <div class="priority-cards">
+                <label class="priority-card low">
+                    <input type="radio" name="priority" value="Low" required>
+                    <div class="card-content">
+                        <h3>Low</h3>
+                        <p>Prioritas rendah</p>
+                    </div>
+                </label>
+                <label class="priority-card medium">
+                    <input type="radio" name="priority" value="Medium" required>
+                    <div class="card-content">
+                        <h3>Medium</h3>
+                        <p>Prioritas menengah</p>
+                    </div>
+                </label>
+                <label class="priority-card high">
+                    <input type="radio" name="priority" value="High" required>
+                    <div class="card-content">
+                        <h3>High</h3>
+                        <p>Prioritas tinggi</p>
+                    </div>
+                </label>
             </div>
-            <div class="form-group">
-                <label for="description">Deskripsi</label>
-                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="priority">Prioritas</label>
-                <select class="form-control" id="priority" name="priority">
-                    <option value="Low">Low</option>
-                    <option value="Medium" selected>Medium</option>
-                    <option value="High">High</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary mt-3">Next</button>
-        </form>
-    </div>
-    {% endblock %}
+        </div>
+        <div class="button-group">
+            <a href="{% url 'request_step1' %}" class="btn-back">Back</a>
+            <button type="submit" class="btn-next">Next</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

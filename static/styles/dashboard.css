@@ -1,0 +1,247 @@
+.container {
+    max-width: 1200px;
+}
+
+.container .layer1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.75rem 1.5rem ;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    font-size: 2rem;
+    margin: 0;
+    color: #2c3e50;
+}
+
+.card p {
+    color: #666;
+    margin: 0.5rem 0 0;
+}
+
+/* Filters and Search */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem; 
+}
+
+.filters input[type="text"] {
+    width: 100%; 
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.filters select {
+    width: 100%; 
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.filters button {
+    width: 100%; 
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filters button:hover {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* Request List */
+.request-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem;
+    margin-bottom: 30vh;
+}
+
+.request-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Pastikan card memiliki tinggi yang sama */
+}
+
+.request-card:hover {
+    transform: translateY(-5px);
+}
+
+.request-card h5 {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+    color: #2c3e50;
+}
+
+.request-card p {
+    color: #666;
+    margin: 0.5rem 0;
+    flex-grow: 1; /* Biarkan deskripsi mengisi ruang yang tersedia */
+    overflow: hidden; /* Sembunyikan teks yang melebihi container */
+    text-overflow: ellipsis; /* Tambahkan ... jika teks terlalu panjang */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Batasi jumlah baris */
+    -webkit-box-orient: vertical;
+}
+
+/* Badge Styles */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+}
+
+/* Pending - Blue */
+.badge.bg-pending {
+    background: #667eea; /* Blue */
+}
+
+/* Approved - Green */
+.badge.bg-approved {
+    background: #4caf50; /* Green */
+}
+
+/* Rejected - Red */
+.badge.bg-rejected {
+    background: #dc3545; /* Red */
+}
+.text-muted {
+    color: #999;
+}
+
+/* No Requests Message */
+.no-requests {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.no-requests h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+}
+
+.no-requests p {
+    color: #666;
+}
+
+/* Media Queries untuk Responsivitas */
+@media (max-width: 768px) {
+    .container .layer1 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .filters {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filters input[type="text"],
+    .filters select,
+    .filters button {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .request-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 0px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .request-grid {
+        grid-template-columns: 1fr;
+    }
+}

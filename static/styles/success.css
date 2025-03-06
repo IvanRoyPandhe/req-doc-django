@@ -1,0 +1,71 @@
+/* Success Alert */
+.alert-success {
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    color: #2e7d32;
+}
+
+.alert-success h2 {
+    font-size: 1.75rem;
+    margin: 0 0 1rem;
+    color: #2e7d32;
+}
+
+.alert-success p {
+    margin: 0.5rem 0;
+    color: #2e7d32;
+}
+
+.alert-success hr {
+    border: 0;
+    border-top: 1px solid #c8e6c9;
+    margin: 1rem 0;
+}
+
+/* Dashboard Button */
+.btn-dashboard {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-dashboard:hover {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .alert-success h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .alert-success h2 {
+        font-size: 1.25rem;
+    }
+
+    .btn-dashboard {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,182 @@
+/* Card Styles */
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.card-header .text-muted {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0.5rem 0 0;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    padding: 1.5rem;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+/* Details Grid */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.detail-item {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detail-item h5 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.detail-item p {
+    margin: 0;
+    color: #666;
+}
+
+/* Badge Styles */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+}
+
+.badge.bg-pending {
+    background: #667eea; /* Blue */
+}
+
+.badge.bg-approved {
+    background: #4caf50; /* Green */
+}
+
+.badge.bg-rejected {
+    background: #dc3545; /* Red */
+}
+
+/* Admin Section */
+.admin-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.admin-item {
+    margin-bottom: 1.5rem;
+}
+
+.admin-item h5 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.admin-item p {
+    margin: 0.5rem 0;
+    color: #666;
+
+}
+
+/* Download Button */
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 0rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-download:hover {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+.btn-download span {
+    margin-right: 0.5rem;
+}
+
+/* Back Button */
+.btn-back {
+    display: inline-block;
+    padding: 0.75rem 0.5rem;
+    background: #f8f9fa;
+    color: #667eea;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .card-header h2 {
+        font-size: 1.75rem;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .card-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn-download,
+    .btn-back {
+        width: 100%;
+        text-align: center;
+    }
+}

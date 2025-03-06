@@ -1,26 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'styles/step3.css' %}">
+{% endblock head %}
+
 {% block title %}Step 3 - Upload File{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4">Step 3: Informasi Tambahan & Upload File (Opsional)</h2>
+<div class="container">
+    <h2>Step 3: Informasi Tambahan & Upload File (Opsional)</h2>
     <form method="POST" action="{% url 'request_step3' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             <label for="deadline">Deadline (Opsional)</label>
-            <input type="date" class="form-control" id="deadline" name="deadline">
+            <input type="date" id="deadline" name="deadline">
         </div>
         <div class="form-group">
             <label for="notes">Catatan Tambahan</label>
-            <textarea class="form-control" id="notes" name="additional_notes" rows="3"></textarea>
+            <textarea id="notes" name="additional_notes" rows="3"></textarea>
         </div>
         <div class="form-group">
             <label for="file">Upload File</label>
-            <input type="file" class="form-control-file" id="file" name="file">
+            <div class="file-upload">
+                <input type="file" id="file" name="file" class="file-input">
+                <div class="file-drop-area">
+                    <span class="file-drop-icon">📂</span>
+                    <p>Drag & drop file di sini atau <span class="file-browse">browse</span></p>
+                    <p class="file-name"></p>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Next</button>
+        <div class="button-group">
+            <a href="{% url 'request_step2' %}" class="btn-back">Back</a>
+            <button type="submit" class="btn-next">Next</button>
+        </div>
     </form>
 </div>
+<script src="{% static 'js/step3.js' %}"></script>
 {% endblock %}

@@ -1,25 +1,79 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{%block head%}
+    <link rel="stylesheet" href="{%static 'styles/step1.css'%}">
+{%endblock head%}
 {% block title %}Step 1 - Pilih Dokumen{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4">Step 1: Pilih Jenis Dokumen</h2>
+<div class="container">
+    <h2>Step 1: Pilih Jenis Dokumen</h2>
     <form method="POST" action="{% url 'request_step1' %}">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="documentType">Jenis Dokumen</label>
-            <select class="form-control" id="documentType" name="document_type" required>
-                <option value="FP">Funding Proposal</option>
-                <option value="IL">Introduction Letter</option>
-                <option value="AL">Assignment Letter</option>
-                <option value="RL">Recommendation Letter</option>
-                <option value="AR">Access Request</option>
-                <option value="OT">Other Document</option>
-            </select>
+        <div class="card-grid">
+            <label class="card-option">
+                <input type="radio" name="document_type" value="FP" required>
+                <div class="card">
+                    <h3>Funding Proposal</h3>
+                    <span class="material-symbols-outlined">
+                        receipt_long
+                    </span>
+                    <p>Ajukan proposal pendanaan untuk proyek Anda.</p>
+                </div>
+            </label>
+            <label class="card-option">
+                <input type="radio" name="document_type" value="IL" required>
+                <div class="card">
+                    <h3>Introduction Letter</h3>
+                    <span class="material-symbols-outlined">
+                        description
+                    </span>
+                    <p>Dapatkan surat pengantar untuk keperluan formal.</p>
+                </div>
+            </label>
+            <label class="card-option">
+                <input type="radio" name="document_type" value="AL" required>
+                <div class="card">
+                    <h3>Assignment Letter</h3>
+                    <span class="material-symbols-outlined">
+                        assignment
+                    </span>
+                    <p>Surat penugasan untuk tugas atau proyek tertentu.</p>
+                </div>
+            </label>
+            <label class="card-option">
+                <input type="radio" name="document_type" value="RL" required>
+                <div class="card">
+                    <h3>Recommendation Letter</h3>
+                    <span class="material-symbols-outlined">
+                        contract
+                    </span>
+                    <p>Surat rekomendasi untuk keperluan akademis atau profesional.</p>
+                </div>
+            </label>
+            <label class="card-option">
+                <input type="radio" name="document_type" value="AR" required>
+                <div class="card">
+                    <h3>Access Request</h3>
+                    <span class="material-symbols-outlined">
+                        task
+                    </span>
+                    <p>Ajukan permintaan akses ke sistem atau fasilitas.</p>
+                </div>
+            </label>
+            <label class="card-option">
+                <input type="radio" name="document_type" value="OT" required>
+                <div class="card">
+                    <h3>Other Document</h3>
+                    <span class="material-symbols-outlined">
+                        assignment_late
+                    </span>
+                    <p>Ajukan dokumen lain yang tidak tercantum di sini.</p>
+                </div>
+            </label>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Next</button>
+        <button type="submit" class="btn-next">Next</button>
     </form>
 </div>
 {% endblock %}

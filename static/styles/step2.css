@@ -1,0 +1,191 @@
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Form Group */
+.form-group {
+    margin: 0px 10px 1.5rem 0px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    background: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #667eea;
+    outline: none;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Priority Cards */
+.priority-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.priority-card {
+    display: block;
+    cursor: pointer;
+}
+
+.priority-card input[type="radio"] {
+    display: none; /* Hide the default radio button */
+}
+
+.priority-card .card-content {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.priority-card input[type="radio"]:checked + .card-content {
+    border-color: currentColor;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.priority-card:hover .card-content {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.priority-card h3 {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+    color: inherit;
+}
+
+.priority-card p {
+    color: #666;
+    margin: 0;
+}
+
+/* Priority Colors */
+.priority-card.low {
+    color: #667eea; /* Blue */
+}
+
+.priority-card.medium {
+    color: #ffc107; /* Yellow */
+}
+
+.priority-card.high {
+    color: #dc3545; /* Red */
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Next Button */
+.btn-next {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+    flex: 1;
+}
+
+.btn-next:hover {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* Back Button */
+.btn-back {
+    display: inline-block;
+    padding: 0.75rem 0px;
+    background: #f8f9fa;
+    color: #667eea;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    flex: 1;
+}
+
+.btn-back:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .priority-cards {
+        grid-template-columns: 1fr;
+    }
+    .button-group {
+        flex-direction: column;
+    }
+
+    .btn-next,
+    .btn-back {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn-next,
+    .btn-back {
+        max-width: 100%;
+    }
+}
