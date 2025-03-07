@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
-{%load static%}
+{% load static %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'styles/success.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock head %}
 
-
 {% block title %}Success{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="alert-success">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
         <h2>Request Submitted Successfully!</h2>
-        <p>Your document request has been submitted. You can view its status on the dashboard.</p>
+        <div class="success-message">
+            <p>Your document request has been submitted. You can view its status on the dashboard.</p>
+        </div>
         <hr>
-        <a href="{% url 'dashboard' %}" class="btn-dashboard">Back to Dashboard</a>
+        <a href="{% url 'dashboard' %}" class="btn-dashboard">
+            <i class="fas fa-tachometer-alt"></i>
+            Back to Dashboard
+        </a>
     </div>
 </div>
 {% endblock %}
