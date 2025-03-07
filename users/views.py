@@ -13,7 +13,10 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('dashboard')  # User baru langsung ke dashboard
+            print("User registered and logged in successfully")  # Debugging
+            return redirect('dashboard')
+        else:
+            print("Form errors:", form.errors)  # Debugging
     else:
         form = CustomUserCreationForm()
     return render(request, 'users/register.html', {'form': form})

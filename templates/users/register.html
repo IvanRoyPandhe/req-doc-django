@@ -6,19 +6,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="{% static 'styles/register.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 </head>
 <body>
     <div class="register-container">
-        <h2>Register</h2>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary w-100">Register</button>
-        </form>
-        <p class="login-link">
-            Sudah punya akun? <a href="{% url 'login' %}">Login</a>
-        </p>
+        <div class="register-card">
+            <h2>Register</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ field }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="id_username">
+                        <span class="material-symbols-outlined">person</span>
+                        Username
+                    </label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">
+                        <span class="material-symbols-outlined">email</span>
+                        Email
+                    </label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">
+                        <span class="material-symbols-outlined">lock</span>
+                        Password
+                    </label>
+                    {{ form.password1 }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">
+                        <span class="material-symbols-outlined">lock</span>
+                        Confirm Password
+                    </label>
+                    {{ form.password2 }}
+                </div>
+                <div class="form-group">
+                    <label for="id_bio">
+                        <span class="material-symbols-outlined">description</span>
+                        Bio
+                    </label>
+                    {{ form.bio }}
+                </div>
+                <div class="form-group">
+                    <label for="id_profile_picture">
+                        <span class="material-symbols-outlined">image</span>
+                        Profile Picture
+                    </label>
+                    <div class="file-upload">
+                        {{ form.profile_picture }}
+                        <div class="file-drop-area">
+                            <span class="file-drop-icon">📂</span>
+                            <p>Drag & drop file here or <span class="file-browse">browse</span></p>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-register">
+                    <span class="material-symbols-outlined">how_to_reg</span>
+                    Register
+                </button>
+            </form>
+            <p class="login-link">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </p>
+        </div>
     </div>
+
+    <script>
+        // JavaScript untuk drag-and-drop dan file upload
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileInput = document.querySelector('input[type="file"]');
+            const fileDropArea = document.querySelector('.file-drop-area');
+
+            // Handle drag-and-drop
+            fileDropArea.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                fileDropArea.classList.add('dragover');
+            });
+
+            fileDropArea.addEventListener('dragleave', function () {
+                fileDropArea.classList.remove('dragover');
+            });
+
+            fileDropArea.addEventListener('drop', function (e) {
+                e.preventDefault();
+                fileDropArea.classList.remove('dragover');
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    fileInput.files = e.dataTransfer.files;
+                }
+            });
+
+            // Trigger file input when clicking the drop area
+            fileDropArea.addEventListener('click', function () {
+                fileInput.click();
+            });
+        });
+    </script>
 </body>
 </html>

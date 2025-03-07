@@ -30,7 +30,6 @@ class Request(models.Model):
     date_submitted = models.DateField(auto_now_add=True)  # Non-editable
     description = models.TextField()
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Medium')
-    assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="assigned_requests")
     deadline = models.DateField(blank=True, null=True)
     additional_notes = models.TextField(blank=True, null=True)
 
