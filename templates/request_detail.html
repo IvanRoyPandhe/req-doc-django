@@ -1,76 +1,137 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{%block head%}
+{% block head %}
 <link rel="stylesheet" href="{% static 'styles/request_detail.css' %}">
-{%endblock head%}
+<!-- Add Material Design Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+{% endblock head %}
 
 {% block title %}Request Detail - {{ request.title }}{% endblock title %}
 
 {% block content %}
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h2>{{ request.title }}</h2>
-            <p class="text-muted">{{ request.type }}</p>
+<div class="request-detail-container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" data-aos="fade-right">
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <span class="material-icons-round">chevron_right</span>
+        <span>Request Details</span>
+    </div>
+
+    <!-- Main Card -->
+    <div class="request-card glass-card" data-aos="fade-up">
+        <!-- Header Section -->
+        <div class="request-header">
+            <div class="header-content">
+                <div class="title-section">
+                    <h2>{{ request.title }}</h2>
+                    <span class="request-type">{{ request.type }}</span>
+                </div>
+                <div class="status-badge 
+                    {% if request.status == 'Pending' %}status-pending
+                    {% elif request.status == 'Approved' %}status-approved
+                    {% elif request.status == 'Rejected' %}status-rejected
+                    {% endif %}">
+                    <span class="material-icons-round">
+                        {% if request.status == 'Pending' %}hourglass_empty
+                        {% elif request.status == 'Approved' %}check_circle
+                        {% elif request.status == 'Rejected' %}cancel
+                        {% endif %}
+                    </span>
+                    {{ request.status }}
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <div class="details-grid">
-                <div class="detail-item">
-                    <h5>Description</h5>
+
+        <!-- Content Grid -->
+        <div class="request-content">
+            <!-- Main Info Section -->
+            <div class="info-section" data-aos="fade-up" data-aos-delay="100">
+                <div class="info-card description-card">
+                    <div class="card-icon">
+                        <span class="material-icons-round">description</span>
+                    </div>
+                    <h3>Description</h3>
                     <p>{{ request.description }}</p>
                 </div>
-                <div class="detail-item">
-                    <h5>Status</h5>
-                    <span class="badge 
-                        {% if request.status == 'Pending' %}bg-pending
-                        {% elif request.status == 'Approved' %}bg-approved
-                        {% elif request.status == 'Rejected' %}bg-rejected
-                        {% endif %}">
-                        {{ request.status }}
-                    </span>
+
+                <div class="info-grid">
+                    <!-- Date Submitted -->
+                    <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-icon">
+                            <span class="material-icons-round">calendar_today</span>
+                        </div>
+                        <h3>Submitted On</h3>
+                        <p>{{ request.date_submitted|date:"F j, Y" }}</p>
+                    </div>
+
+                    <!-- Deadline -->
+                    {% if request.deadline %}
+                    <div class="info-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-icon">
+                            <span class="material-icons-round">schedule</span>
+                        </div>
+                        <h3>Deadline</h3>
+                        <p>{{ request.deadline|date:"F j, Y" }}</p>
+                    </div>
+                    {% endif %}
                 </div>
-                <div class="detail-item">
-                    <h5>Submitted On</h5>
-                    <p class="text-muted">{{ request.date_submitted }}</p>
-                </div>
-                {% if request.deadline %}
-                <div class="detail-item">
-                    <h5>Deadline</h5>
-                    <p class="text-muted">{{ request.deadline }}</p>
-                </div>
-                {% endif %}
+
+                <!-- Additional Notes -->
                 {% if request.additional_notes %}
-                <div class="detail-item">
-                    <h5>Additional Notes</h5>
+                <div class="info-card notes-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-icon">
+                        <span class="material-icons-round">note_add</span>
+                    </div>
+                    <h3>Additional Notes</h3>
                     <p>{{ request.additional_notes }}</p>
                 </div>
                 {% endif %}
             </div>
 
-            <!-- Admin File and Notes -->
+            <!-- Admin Section -->
             {% if request.fileadmin or request.deskripsiadmin %}
-            <div class="admin-section">
+            <div class="admin-section" data-aos="fade-up" data-aos-delay="500">
+                <h3 class="section-title">
+                    <span class="material-icons-round">admin_panel_settings</span>
+                    Administrative Response
+                </h3>
+                
                 {% if request.fileadmin %}
-                <div class="admin-item">
-                    <h5>Admin File</h5>
-                    <a href="{{ request.fileadmin.url }}" class="btn-download" download>
-                        <span class="material-symbols-outlined">download</span> Download File
+                <div class="admin-file-card">
+                    <div class="file-info">
+                        <span class="material-icons-round">attachment</span>
+                        <div class="file-details">
+                            <h4>Attached Document</h4>
+                            <p>{{ request.fileadmin }}</p>
+                        </div>
+                    </div>
+                    <a href="{{ request.fileadmin.url }}" class="download-button" download>
+                        <span class="material-icons-round">download</span>
+                        Download
                     </a>
-                    <p class="text-muted">{{ request.fileadmin }}</p>
                 </div>
                 {% endif %}
+
                 {% if request.deskripsiadmin %}
-                <div class="admin-item">
-                    <h5>Admin Notes</h5>
+                <div class="admin-notes-card">
+                    <h4>
+                        <span class="material-icons-round">comment</span>
+                        Admin Notes
+                    </h4>
                     <p>{{ request.deskripsiadmin }}</p>
                 </div>
                 {% endif %}
             </div>
             {% endif %}
         </div>
-        <div class="card-footer">
-            <a href="{% url 'dashboard' %}" class="btn-back">Back to Dashboard</a>
+
+        <!-- Footer Actions -->
+        <div class="request-footer">
+            <a href="{% url 'dashboard' %}" class="back-button">
+                <span class="material-icons-round">arrow_back</span>
+                Back to Dashboard
+            </a>
         </div>
     </div>
 </div>

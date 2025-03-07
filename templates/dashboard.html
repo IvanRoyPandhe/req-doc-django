@@ -5,84 +5,123 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
+    <!-- Add Material Design Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock head %}
 
 {% block content %}
-<div class="container">
-    <div class="layer1">
-        <h2>My Document Requests</h2>
-        <a href="{% url 'request_step1' %}" class="btn-primary">
-            <span class="material-symbols-outlined">
-                add_circle
-            </span> New Request
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <div class="dashboard-header">
+        <h2><i class="material-icons">dashboard</i> My Document Requests</h2>
+        <a href="{% url 'request_step1' %}" class="btn-create">
+            <span class="material-icons">add_circle</span>
+            New Request
         </a>
     </div>
 
-    <!-- Stats Cards -->
+    <!-- Stats Cards with Animation -->
     <div class="stats-grid">
-        <div class="card">
-            <h3>{{ stats.total }}</h3>
-            <p>Total Requests</p>
+        <div class="stat-card" data-aos="fade-up">
+            <div class="stat-icon total">
+                <span class="material-icons">description</span>
+            </div>
+            <div class="stat-content">
+                <h3>{{ stats.total }}</h3>
+                <p>Total Requests</p>
+            </div>
         </div>
-        <div class="card">
-            <h3>{{ stats.pending }}</h3>
-            <p>Pending</p>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-icon pending">
+                <span class="material-icons">pending</span>
+            </div>
+            <div class="stat-content">
+                <h3>{{ stats.pending }}</h3>
+                <p>Pending</p>
+            </div>
         </div>
-        <div class="card">
-            <h3>{{ stats.approved }}</h3>
-            <p>Approved</p>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-icon approved">
+                <span class="material-icons">check_circle</span>
+            </div>
+            <div class="stat-content">
+                <h3>{{ stats.approved }}</h3>
+                <p>Approved</p>
+            </div>
         </div>
-        <div class="card">
-            <h3>{{ stats.rejected }}</h3>
-            <p>Rejected</p>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="stat-icon rejected">
+                <span class="material-icons">cancel</span>
+            </div>
+            <div class="stat-content">
+                <h3>{{ stats.rejected }}</h3>
+                <p>Rejected</p>
+            </div>
         </div>
     </div>
 
-    <!-- Filters and Search -->
-    <form method="GET" action="{% url 'dashboard' %}">
-        <div class="filters">
-            <input type="text" placeholder="Search requests..." name="search" value="{{ request.GET.search }}">
-            <select name="status">
-                <option value="all" {% if request.GET.status == "all" %}selected{% endif %}>All Statuses</option>
-                <option value="Pending" {% if request.GET.status == "Pending" %}selected{% endif %}>Pending</option>
-                <option value="Approved" {% if request.GET.status == "Approved" %}selected{% endif %}>Approved</option>
-                <option value="Rejected" {% if request.GET.status == "Rejected" %}selected{% endif %}>Rejected</option>
-            </select>
-            <select name="sort">
-                <option value="dateDesc" {% if request.GET.sort == "dateDesc" %}selected{% endif %}>Newest First</option>
-                <option value="dateAsc" {% if request.GET.sort == "dateAsc" %}selected{% endif %}>Oldest First</option>
-            </select>
-            <button type="submit" class="btn-primary">Apply</button>
-        </div>
-    </form>
+    <!-- Enhanced Filters -->
+    <div class="filters-section">
+        <form method="GET" action="{% url 'dashboard' %}" class="filters-form">
+            <div class="search-box">
+                <span class="material-icons">search</span>
+                <input type="text" placeholder="Search requests..." name="search" value="{{ request.GET.search }}">
+            </div>
+            <div class="filter-controls">
+                <select name="status" class="filter-select">
+                    <option value="all" {% if request.GET.status == "all" %}selected{% endif %}>All Statuses</option>
+                    <option value="Pending" {% if request.GET.status == "Pending" %}selected{% endif %}>Pending</option>
+                    <option value="Approved" {% if request.GET.status == "Approved" %}selected{% endif %}>Approved</option>
+                    <option value="Rejected" {% if request.GET.status == "Rejected" %}selected{% endif %}>Rejected</option>
+                </select>
+                <select name="sort" class="filter-select">
+                    <option value="dateDesc" {% if request.GET.sort == "dateDesc" %}selected{% endif %}>Newest First</option>
+                    <option value="dateAsc" {% if request.GET.sort == "dateAsc" %}selected{% endif %}>Oldest First</option>
+                </select>
+                <button type="submit" class="btn-filter">
+                    <span class="material-icons">filter_list</span>
+                    Apply Filters
+                </button>
+            </div>
+        </form>
+    </div>
 
-    <!-- Request List -->
+    <!-- Request Cards Grid -->
     <div class="request-grid">
         {% if requests %}
             {% for request in requests %}
-                <a href="{% url 'request_detail' request.id %}">
-                    <div class="request-card">
-                        <h5>{{ request.title }}</h5>
-                        <p class="text-muted">{{ request.type }}</p>
-                        <p>{{ request.description }}</p>
-                        <span class="badge 
-                            {% if request.status == 'Pending' %}bg-pending
-                            {% elif request.status == 'Approved' %}bg-approved
-                            {% elif request.status == 'Rejected' %}bg-rejected
-                            {% endif %}">
-                            {{ request.status }}
-                        </span>
-                        <small class="text-muted">{{ request.date_submitted }}</small>
-                    </div>
-                </a>
+                <div class="request-card" data-aos="fade-up">
+                    <a href="{% url 'request_detail' request.id %}">
+                        <div class="request-header">
+                            <h5>{{ request.title }}</h5>
+                            <span class="badge {{ request.status|lower }}">
+                                {{ request.status }}
+                            </span>
+                        </div>
+                        <div class="request-body">
+                            <p class="request-type">
+                                <span class="material-icons">folder</span>
+                                {{ request.type }}
+                            </p>
+                            <p class="request-description">{{ request.description }}</p>
+                        </div>
+                        <div class="request-footer">
+                            <small class="date">
+                                <span class="material-icons">calendar_today</span>
+                                {{ request.date_submitted }}
+                            </small>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         {% else %}
-            <div class="no-requests">
+            <div class="no-requests" data-aos="fade-up">
+                <span class="material-icons">inbox</span>
                 <h3>No requests found</h3>
                 <p>You haven't submitted any document requests yet</p>
+                <a href="{% url 'request_step1' %}" class="btn-create">Create Your First Request</a>
             </div>
         {% endif %}
     </div>
 </div>
-<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock content %}
