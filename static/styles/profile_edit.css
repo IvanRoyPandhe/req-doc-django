@@ -1,221 +1,298 @@
-/* General Styles */
+/* Modern Profile Edit Styling */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: #333;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.profile-edit-container {
+.edit-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+}
+
+.edit-card {
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    padding: 2.5rem;
-    max-width: 500px;
-    width: 100%;
-    animation: fadeIn 0.5s ease-in-out;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.profile-edit-container h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
+.card-header {
+    background: linear-gradient(135deg, #2193b0, #6dd5ed);
+    padding: 2rem;
+    color: white;
     text-align: center;
 }
 
-/* Form Group */
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
+.card-header h2 {
+    margin: 0;
+    font-size: 2rem;
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.subtitle {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
     font-size: 1rem;
+}
+
+.edit-form {
+    padding: 2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2193b0;
     font-weight: 500;
-    color: #2c3e50;
     margin-bottom: 0.5rem;
 }
 
-.form-group label span {
-    margin-right: 0.5rem;
-    color: #667eea;
+.input-wrapper {
+    position: relative;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
+input[type="text"],
+input[type="email"],
+textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 12px 16px;
+    border: 2px solid #e1e5ea;
+    border-radius: 10px;
     font-size: 1rem;
-    color: #333;
-    background: #f9f9f9;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    background: #f8fafc;
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: #667eea;
-    outline: none;
-    background: #fff;
-    box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
-}
-
-.form-group textarea {
+textarea {
+    min-height: 120px;
     resize: vertical;
-    min-height: 100px;
 }
 
-/* File Upload */
-/* File Upload */
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2193b0;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(33, 147, 176, 0.1);
+}
+
+.focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #2193b0;
+    transition: width 0.3s ease;
+}
+
+input:focus ~ .focus-border,
+textarea:focus ~ .focus-border {
+    width: 100%;
+}
+
+.file-upload-container {
+    margin-top: 0.5rem;
+}
+
 .file-upload {
     position: relative;
 }
 
-.file-upload input[type="file"] {
-    display: none; /* Sembunyikan input file default */
+.file-input {
+    display: none;
 }
 
 .file-drop-area {
-    border: 2px dashed #667eea;
-    border-radius: 8px;
-    padding: 1.5rem;
+    padding: 2rem;
+    border: 2px dashed #2193b0;
+    border-radius: 15px;
+    background: rgba(33, 147, 176, 0.05);
     text-align: center;
-    background: #f9f9f9;
-    transition: border-color 0.3s ease, background 0.3s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .file-drop-area.dragover {
-    border-color: #764ba2;
-    background: rgba(102, 126, 234, 0.1);
+    background: rgba(33, 147, 176, 0.1);
+    border-color: #6dd5ed;
 }
 
-.file-drop-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: #667eea;
+.file-preview {
+    margin-bottom: 1rem;
+    position: relative;
 }
 
-.file-drop-area p {
-    margin: 0.5rem 0;
+.upload-icon {
+    font-size: 3rem;
+    color: #2193b0;
+}
+
+.preview-image {
+    display: none;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 3px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.drop-message {
+    margin: 0;
     color: #666;
 }
 
-.file-browse {
-    color: #667eea;
+.browse-btn {
+    background: #2193b0;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
     cursor: pointer;
-    text-decoration: underline;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.browse-btn:hover {
+    background: #1a7a8c;
+    transform: translateY(-1px);
 }
 
 .file-name {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    color: #333;
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    color: #666;
 }
-/* Form Actions */
+
+.error-container {
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.error-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #c53030;
+    margin-bottom: 0.5rem;
+}
+
+.error-container ul {
+    margin: 0;
+    padding-left: 2rem;
+    color: #c53030;
+}
+
 .form-actions {
     display: flex;
-    justify-content: space-between;
     gap: 1rem;
     margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e1e5ea;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
 }
 
 .btn-save {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #2193b0, #6dd5ed);
     color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    flex: 1;
+    box-shadow: 0 4px 15px rgba(33, 147, 176, 0.3);
 }
 
 .btn-save:hover {
-    background: linear-gradient(135deg, #764ba2, #667eea);
-}
-
-.btn-save span {
-    margin-right: 0.5rem;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(33, 147, 176, 0.4);
 }
 
 .btn-cancel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    background: #f8f9fa;
-    color: #667eea;
-    border: 2px solid #667eea;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-    text-decoration: none;
-    flex: 1;
+    background: linear-gradient(135deg, #757F9A, #D7DDE8);
+    color: white;
+    box-shadow: 0 4px 15px rgba(117, 127, 154, 0.3);
 }
 
 .btn-cancel:hover {
-    background: #667eea;
-    color: white;
-}
-
-.btn-cancel span {
-    margin-right: 0.5rem;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(117, 127, 154, 0.4);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .profile-edit-container {
+    .edit-container {
+        margin: 1rem auto;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .card-header {
         padding: 1.5rem;
     }
 
-    .profile-edit-container h2 {
-        font-size: 1.75rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-edit-container {
-        padding: 1rem;
-    }
-
-    .profile-edit-container h2 {
-        font-size: 1.5rem;
+    .edit-form {
+        padding: 1.5rem;
     }
 
     .form-actions {
         flex-direction: column;
     }
 
-    .btn-save,
-    .btn-cancel {
+    .btn {
         width: 100%;
+        justify-content: center;
     }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.edit-card {
+    animation: fadeIn 0.6s ease-out;
 }

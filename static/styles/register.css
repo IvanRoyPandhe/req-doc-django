@@ -1,90 +1,130 @@
-/* General Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: #333;
+/* Reset and base styles */
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-.register-container {
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Container styles */
+.container {
     width: 100%;
-    max-width: 500px;
-    padding: 1rem;
+    max-width: 480px;
 }
 
 .register-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
     padding: 2rem;
-    animation: fadeIn 0.5s ease-in-out;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.register-card:hover {
+    transform: translateY(-5px);
 }
 
-.register-card h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
+/* Header styles */
+.register-header {
     text-align: center;
+    margin-bottom: 2rem;
 }
 
-/* Form Group */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.logo .material-icons-round {
+    font-size: 2rem;
+    color: #764ba2;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #764ba2;
+}
+
+.register-header h1 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.register-header p {
+    color: #666;
+}
+
+/* Form styles */
 .form-group {
     margin-bottom: 1.5rem;
 }
 
 .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.input-group {
+    position: relative;
     display: flex;
     align-items: center;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
 }
 
-.form-group label span {
-    margin-right: 0.5rem;
-    color: #667eea;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
+.input-group input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    padding-right: 2.5rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 10px;
     font-size: 1rem;
-    color: #333;
-    background: #f9f9f9;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: #667eea;
+.input-group input:focus {
+    border-color: #764ba2;
     outline: none;
-    background: #fff;
-    box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
 }
 
-/* File Upload */
+.input-group .material-icons-round {
+    position: absolute;
+    right: 1rem;
+    color: #764ba2;
+}
+
+/* Password toggle button */
+.password-toggle {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.password-toggle .material-icons-round {
+    color: #764ba2;
+    position: static;
+}
+
+/* File upload styles */
 .file-upload {
     position: relative;
 }
@@ -93,97 +133,131 @@ body {
     display: none;
 }
 
-.file-drop-area {
-    border: 2px dashed #667eea;
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-align: center;
-    background: #f9f9f9;
-    transition: border-color 0.3s ease, background 0.3s ease;
-    cursor: pointer;
-}
-
-.file-drop-area.dragover {
-    border-color: #764ba2;
-    background: rgba(102, 126, 234, 0.1);
-}
-
-.file-drop-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: #667eea;
-}
-
-.file-drop-area p {
-    margin: 0.5rem 0;
-    color: #666;
-}
-
-.file-browse {
-    color: #667eea;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-/* Register Button */
-.btn-register {
+.file-label {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    background: #f8f9fa;
+    border: 2px dashed #e1e1e1;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-label:hover {
+    border-color: #764ba2;
+    background: #f3f4f6;
+}
+
+/* Checkbox styles */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #764ba2;
+}
+
+/* Submit button styles */
+.submit-btn {
     width: 100%;
-    padding: 0.75rem;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
+    color: white;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
 }
 
-.btn-register:hover {
-    background: linear-gradient(135deg, #764ba2, #667eea);
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
 }
 
-.btn-register span {
-    margin-right: 0.5rem;
-}
-
-/* Login Link */
+/* Login link styles */
 .login-link {
     text-align: center;
     margin-top: 1.5rem;
-    color: #666;
 }
 
 .login-link a {
-    color: #667eea;
+    color: #764ba2;
     text-decoration: none;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .login-link a:hover {
-    color: #764ba2;
+    color: #667eea;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Error messages */
+.error-container {
+    background: #fff5f5;
+    border-left: 4px solid #f56565;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+}
+
+.error-message {
+    color: #c53030;
+    font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
     .register-card {
         padding: 1.5rem;
     }
 
-    .register-card h2 {
-        font-size: 1.75rem;
+    .register-header h1 {
+        font-size: 1.5rem;
     }
 }
 
-@media (max-width: 480px) {
-    .register-card {
-        padding: 1rem;
+/* Cool animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-    .register-card h2 {
-        font-size: 1.5rem;
-    }
+.register-card {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Input focus effect */
+.input-group input:focus ~ .material-icons-round {
+    color: #667eea;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+/* Hover effects */
+.form-group:hover .material-icons-round {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
 }

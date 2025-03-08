@@ -1,105 +1,63 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="{% static 'styles/profile.css' %}">
-</head>
-<body>
-    <header>
-        <div class="header-container">
-            <a href="{% url 'dashboard' %}" class="logo">DocRequest</a>
-            <nav>
-                <ul>
-                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                    <li><a href="{% url 'request_step1' %}">New Request</a></li>
-                </ul>
-            </nav>
-            <div class="dropdown">
-                <button class="profile-dropdown">
-                    <i class="bi bi-person-circle"></i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="{% url 'profile' %}">My Profile</a></li>
-                    <form action="{% url 'logout' %}" method="POST">
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'styles/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <h2>My Profile</h2>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-left">
+                <div class="profile-picture-container">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-image">
+                    {% else %}
+                        <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture" class="profile-image">
+                    {% endif %}
+                    <a href="{% url 'profile_edit' %}" class="btn-edit-photo">
+                        <i class="bi bi-camera"></i>
+                        Change Photo
+                    </a>
+                </div>
+            </div>
+
+            <div class="profile-right">
+                <div class="profile-info">
+                    <div class="info-group">
+                        <label>Username</label>
+                        <p class="info-value">{{ user.username }}</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <label>Email</label>
+                        <p class="info-value">{{ user.email }}</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <label>Bio</label>
+                        <p class="info-text">{{ user.bio|default:"No bio yet." }}</p>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <a href="{% url 'profile_edit' %}" class="btn btn-primary">
+                        <i class="bi bi-pencil"></i> Edit Profile
+                    </a>
+                    <form action="{% url 'logout' %}" method="POST" class="logout-form">
                         {% csrf_token %}
-                        <button type="submit" class="logout-btn">Logout</button>
+                        <button type="submit" class="btn btn-secondary">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </button>
                     </form>
-                </ul>
-            </div>
-        </div>
-    </header>
-    <div class="profile-container">
-        <h2>My Profile</h2>
-        <div class="profile-grid">
-            <!-- Foto Profil -->
-            <div class="profile-picture">
-                {% if user.profile_picture %}
-                    <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
-                {% else %}
-                    <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture">
-                {% endif %}
-            </div>
-            <!-- Informasi Pengguna -->
-            <div class="profile-details">
-                <div class="detail-item">
-                    <h5>Username</h5>
-                    <p>{{ user.username }}</p>
-                </div>
-                <div class="detail-item">
-                    <h5>Email</h5>
-                    <p>{{ user.email }}</p>
-                </div>
-                <div class="detail-item">
-                    <h5>Bio</h5>
-                    <p>{{ user.bio|default:"No bio yet." }}</p>
                 </div>
             </div>
-        </div>
-        <!-- Tombol Edit dan Logout -->
-        <div class="profile-actions">
-            <a href="{% url 'profile_edit' %}" class="btn-edit">Edit Profile</a>
-            <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
         </div>
     </div>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h5>Document Request System</h5>
-                <p>A platform for students and faculty to submit and track document requests.</p>
-            </div>
-            <div class="footer-section">
-                <h5>Quick Links</h5>
-                <ul>
-                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                    <li><a href="{% url 'request_step1' %}">New Request</a></li>
-                    <li><a href="/faq">FAQ</a></li>
-                    <li><a href="/help">Help Center</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h5>Document Types</h5>
-                <ul>
-                    <li><a href="#">Funding Proposals</a></li>
-                    <li><a href="#">Introduction Letters</a></li>
-                    <li><a href="#">Assignment Letters</a></li>
-                    <li><a href="#">Recommendation Letters</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h5>Contact</h5>
-                <p>Email: support@docrequest.edu</p>
-                <p>Phone: (555) 123-4567</p>
-                <p>Address: 123 University Ave, Campus Building</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; <span id="currentYear"></span> Document Request System. All rights reserved.</p>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-        </div>
-    </footer>
-</body>
-</html>
+</div>
+{% endblock %}

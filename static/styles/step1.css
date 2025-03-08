@@ -1,7 +1,7 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem;
+    
 }
 
 h2 {
@@ -42,10 +42,10 @@ h2::after {
 
 .card {
     background: white;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 2rem;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     height: 100%;
     display: flex;
@@ -53,30 +53,57 @@ h2::after {
     align-items: center;
     justify-content: center;
     border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
+    transition: all 0.4s ease-in-out;
+}
+
+.card:hover::before {
+    left: 100%;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-color: #3498db;
 }
 
 .card-option input[type="radio"]:checked + .card {
     border-color: #3498db;
     background: linear-gradient(145deg, #ffffff, #f8f9fa);
-    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.2);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+    transform: scale(1.03);
 }
 
 .card h3 {
     color: #2c3e50;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
 }
 
 .card p {
     color: #7f8c8d;
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 1rem;
+    line-height: 1.6;
     margin-top: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.card:hover h3,
+.card:hover p {
+    color: #34495e;
 }
 
 .material-symbols-outlined {

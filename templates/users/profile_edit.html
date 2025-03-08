@@ -6,17 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="{% static 'styles/profile_edit.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 </head>
 <body>
-    <div class="profile-edit-container">
-        <h2>Edit Profile</h2>
-        <form method="POST" action="{% url 'profile_edit' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <!-- Tampilkan pesan error jika ada -->
-            {% if form.errors %}
-                <div class="error-message">
-                    <p>Please correct the errors below:</p>
+    <div class="edit-container">
+        <div class="edit-card">
+            <div class="card-header">
+                <h2>
+                    <span class="material-symbols-outlined">edit</span>
+                    Edit Your Profile
+                </h2>
+                <p class="subtitle">Customize your profile information</p>
+            </div>
+
+            <form method="POST" action="{% url 'profile_edit' %}" enctype="multipart/form-data" class="edit-form">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                <div class="error-container">
+                    <div class="error-header">
+                        <span class="material-symbols-outlined">error</span>
+                        <p>Please correct the following errors:</p>
+                    </div>
                     <ul>
                         {% for field, errors in form.errors.items %}
                             {% for error in errors %}
@@ -25,92 +37,124 @@
                         {% endfor %}
                     </ul>
                 </div>
-            {% endif %}
-            <div class="form-group">
-                <label for="id_username">
-                    <span class="material-symbols-outlined">person</span>
-                    Username
-                </label>
-                {{ form.username }}
-            </div>
-            <div class="form-group">
-                <label for="id_email">
-                    <span class="material-symbols-outlined">email</span>
-                    Email
-                </label>
-                {{ form.email }}
-            </div>
-            <div class="form-group">
-                <label for="id_bio">
-                    <span class="material-symbols-outlined">description</span>
-                    Bio
-                </label>
-                {{ form.bio }}
-            </div>
-            <div class="form-group">
-                <label for="id_profile_picture">
-                    <span class="material-symbols-outlined">image</span>
-                    Profile Picture
-                </label>
-                <div class="file-upload">
-                    <input type="file" name="profile_picture" id="id_profile_picture" class="file-input">
-                    <div class="file-drop-area">
-                        <span class="file-drop-icon">📂</span>
-                        <p>Drag & drop file here or <span class="file-browse">browse</span></p>
-                        <p class="file-name"></p>
+                {% endif %}
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="id_username">
+                            <span class="material-symbols-outlined">person</span>
+                            Username
+                        </label>
+                        <div class="input-wrapper">
+                            {{ form.username }}
+                            <span class="focus-border"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_email">
+                            <span class="material-symbols-outlined">email</span>
+                            Email
+                        </label>
+                        <div class="input-wrapper">
+                            {{ form.email }}
+                            <span class="focus-border"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="id_bio">
+                            <span class="material-symbols-outlined">description</span>
+                            Bio
+                        </label>
+                        <div class="input-wrapper">
+                            {{ form.bio }}
+                            <span class="focus-border"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="id_profile_picture">
+                            <span class="material-symbols-outlined">image</span>
+                            Profile Picture
+                        </label>
+                        <div class="file-upload-container">
+                            <div class="file-upload">
+                                <input type="file" name="profile_picture" id="id_profile_picture" class="file-input" accept="image/*">
+                                <div class="file-drop-area">
+                                    <div class="file-preview">
+                                        <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+                                        <div class="preview-image"></div>
+                                    </div>
+                                    <div class="file-message">
+                                        <p class="drop-message">Drag & drop your image here or</p>
+                                        <button type="button" class="browse-btn">Browse Files</button>
+                                        <p class="file-name"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn-save">
-                    <span class="material-symbols-outlined">save</span>
-                    Save Changes
-                </button>
-                <a href="{% url 'profile' %}" class="btn-cancel">
-                    <span class="material-symbols-outlined">cancel</span>
-                    Cancel
-                </a>
-            </div>
-        </form>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-save">
+                        <span class="material-symbols-outlined">save</span>
+                        Save Changes
+                    </button>
+                    <a href="{% url 'profile' %}" class="btn btn-cancel">
+                        <span class="material-symbols-outlined">close</span>
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
-        // JavaScript untuk drag-and-drop dan file upload
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const fileInput = document.querySelector('.file-input');
-            const fileDropArea = document.querySelector('.file-drop-area');
+            const dropArea = document.querySelector('.file-drop-area');
+            const browseBtn = document.querySelector('.browse-btn');
             const fileNameDisplay = document.querySelector('.file-name');
+            const previewImage = document.querySelector('.preview-image');
+            const uploadIcon = document.querySelector('.upload-icon');
 
-            // Handle file input change
-            fileInput.addEventListener('change', function (e) {
+            function handleFile(file) {
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.style.backgroundImage = `url(${e.target.result})`;
+                        previewImage.style.display = 'block';
+                        uploadIcon.style.display = 'none';
+                        fileNameDisplay.textContent = file.name;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            fileInput.addEventListener('change', function(e) {
                 const file = e.target.files[0];
-                if (file) {
-                    fileNameDisplay.textContent = file.name;
-                }
+                handleFile(file);
             });
 
-            // Handle drag-and-drop
-            fileDropArea.addEventListener('dragover', function (e) {
+            dropArea.addEventListener('dragover', function(e) {
                 e.preventDefault();
-                fileDropArea.classList.add('dragover');
+                dropArea.classList.add('dragover');
             });
 
-            fileDropArea.addEventListener('dragleave', function () {
-                fileDropArea.classList.remove('dragover');
+            dropArea.addEventListener('dragleave', function() {
+                dropArea.classList.remove('dragover');
             });
 
-            fileDropArea.addEventListener('drop', function (e) {
+            dropArea.addEventListener('drop', function(e) {
                 e.preventDefault();
-                fileDropArea.classList.remove('dragover');
+                dropArea.classList.remove('dragover');
                 const file = e.dataTransfer.files[0];
-                if (file) {
-                    fileInput.files = e.dataTransfer.files;
-                    fileNameDisplay.textContent = file.name;
-                }
+                handleFile(file);
             });
 
-            // Trigger file input when clicking the drop area
-            fileDropArea.addEventListener('click', function () {
+            browseBtn.addEventListener('click', function() {
                 fileInput.click();
             });
         });
