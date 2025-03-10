@@ -89,26 +89,25 @@
 }
 
 .stat-card {
-    
     border-radius: 30px;
-    background: #e0e0e0;
-    box-shadow: 15px 15px 30px #bebebe,
-               -15px -15px 30px #ffffff;
+    background: linear-gradient(145deg, #f0f0f0, #d6d6d6);
+    box-shadow: inset 5px 5px 10px #bebebe,
+                inset -5px -5px 10px #ffffff,
+                0 15px 30px rgba(0, 0, 0, 0.1);
     padding: 1.75rem;
     display: flex;
     align-items: center;
     gap: 1.25rem;
     transition: all 0.3s ease;
-    
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
     box-shadow: inset 5px 5px 10px #bebebe,
                 inset -5px -5px 10px #ffffff,
-                0 15px 30px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(145deg, #f0f0f0, #d6d6d6);
+                0 20px 40px rgba(0, 0, 0, 0.15);
 }
+
 
 
 .stat-icon {
