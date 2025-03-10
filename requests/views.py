@@ -134,3 +134,10 @@ def request_success(request):
 def request_detail(request, request_id):
     request_detail = get_object_or_404(Request, id=request_id, user=request.user)
     return render(request, 'request_detail.html', {'request': request_detail})
+
+def request_notifications(request):
+    if request.user.is_staff:
+        new_requests_count = Request.objects.filter(status='Pending').count()
+        print(f"New Requests Count: {new_requests_count}")  # Debugging
+        return {'new_requests_count': new_requests_count}
+    return {}

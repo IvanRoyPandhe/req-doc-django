@@ -1,0 +1,27 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Administrasi Sanportal</a></h1>
+{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'styles/admin/admin.css' %}">
+<script src="{% static 'js/admin/admin.js' %}"></script>
+{% endblock %}
+
+{% block sidebar %}
+{{ block.super }}
+<script>
+    // Tambahkan badge notifikasi ke menu Request
+    document.addEventListener("DOMContentLoaded", function() {
+        const requestMenu = document.querySelector('a[href*="/admin/requests/request/"]');
+        if (requestMenu && {{ new_requests_count|default:0 }} > 0) {
+            const badge = document.createElement('span');
+            badge.className = 'badge badge-danger float-right';
+            badge.textContent = '{{ new_requests_count }}';
+            requestMenu.appendChild(badge);
+        }
+    });
+</script>
+{% endblock %}

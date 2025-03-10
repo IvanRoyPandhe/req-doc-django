@@ -1,0 +1,29 @@
+
+.card {
+    background-color: white;
+    border-radius: 20px;
+}
+
+.card .card-header {
+    text-align: center;
+}
+
+.card .card-body{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-size: larger;
+}
+
+/* Custom CSS for Badge Notifications */
+.badge {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: #fff;
+}

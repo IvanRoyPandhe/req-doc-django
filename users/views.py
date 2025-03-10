@@ -70,3 +70,17 @@ def profile_edit_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')  # Setelah logout, kembali ke halaman login
+
+def lock(request):
+  return render(request, 'accounts/lock.html')
+
+# Errors
+def error_404(request):
+  return render(request, 'pages/examples/404.html')
+
+def error_500(request):
+  return render(request, 'pages/examples/500.html')
+
+# Extra
+def upgrade_to_pro(request):
+  return render(request, 'pages/upgrade-to-pro.html')
